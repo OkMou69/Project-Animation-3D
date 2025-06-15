@@ -44,7 +44,8 @@ void init()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);  
-	glEnable(GL_LIGHT0);     
+	glEnable(GL_LIGHT0);
+	glEnable(GL_NORMALIZE);
 	//glDisable(GL_LIGHT0);
 
 	// Optional: define light properties
