@@ -78,7 +78,76 @@ void drawChair(float x, float y, float z)
 	glPopMatrix(); //1
 }
 
+void drawCart(float x, float y, float z)
+{
+    // Cart material (wood-like brown)
+    GLfloat mat_ambient[] = { 0.25f, 0.15f, 0.07f, 1.0f };
+    GLfloat mat_diffuse[] = { 0.5f, 0.3f, 0.15f, 1.0f };
+    GLfloat mat_specular[] = { 0.1f, 0.1f, 0.1f, 1.0f };
+    GLfloat mat_shininess[] = { 10.0f };
 
+    glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+    glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+
+    float length = 4.0f;
+    float width = 2.0f;
+    float height = 1.5f;
+    float thickness = 0.1f;
+
+    glPushMatrix();
+    glTranslatef(x, y, z);
+
+    // Bottom
+    glPushMatrix();
+    glTranslatef(0.0f, 0.0f, 0.0f);
+    drawCube(length, width, thickness);
+    glPopMatrix();
+
+    // Left wall
+    glPushMatrix();
+    glTranslatef(-length / 2 + thickness / 2, 0.0f, height / 2);
+    drawCube(thickness, width, height);
+    glPopMatrix();
+
+    // Right wall
+    glPushMatrix();
+    glTranslatef(length / 2 - thickness / 2, 0.0f, height / 2);
+    drawCube(thickness, width, height);
+    glPopMatrix();
+
+    // Back wall
+    glPushMatrix();
+    glTranslatef(0.0f, -width / 2 + thickness / 2, height / 2);
+    drawCube(length, thickness, height);
+    glPopMatrix();
+
+    // Front wall (partial, with emblem)
+    glPushMatrix();
+    glTranslatef(0.0f, width / 2 - thickness / 2, height / 2);
+    drawCube(length, thickness, height);
+    glPopMatrix();
+
+    // Decorative Grey Emblem (a flat symbol on front wall)
+    GLfloat emblem_ambient[] = { 0.4f, 0.4f, 0.4f, 1.0f };
+    GLfloat emblem_diffuse[] = { 0.6f, 0.6f, 0.6f, 1.0f };
+    GLfloat emblem_specular[] = { 0.8f, 0.8f, 0.8f, 1.0f };
+    GLfloat emblem_shininess[] = { 50.0f };
+
+    glMaterialfv(GL_FRONT, GL_AMBIENT, emblem_ambient);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, emblem_diffuse);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, emblem_specular);
+    glMaterialfv(GL_FRONT, GL_SHININESS, emblem_shininess);
+
+    glPushMatrix();
+    glTranslatef(0.0f, width / 2 + 0.01f, height * 0.6f);
+    glScalef(0.6f, 0.1f, 0.6f); // flatten emblem slightly
+    drawSphere(1.0f); // emblem is a raised sphere
+    glPopMatrix();
+
+    glPopMatrix();
+}
 void drawTable(float x, float y, float z)
 {
 	float brightnessFactor = 0.2f;  // small specular brightness for mild shine
